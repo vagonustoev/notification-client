@@ -19,7 +19,8 @@ class NotificationClient
         $this->client = new Client([
             'http_errors' => $this->httpErrors,
             'headers' => [
-                'X-Requested-With' => 'XMLHttpRequest'
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Authorization' => 'Bearer ' . $this->token
             ]
         ]);
     }
@@ -32,8 +33,7 @@ class NotificationClient
         $response = $this->client->post($this->url, ['json' => [
             'name' => $name,
             'payload' => $payload,
-            'clientId' => $this->clientId,
-            'token' => $this->token
+            'clientId' => $this->clientId
         ]]);
 
         if($response->getStatusCode() != 200){
